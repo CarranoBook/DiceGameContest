@@ -21,19 +21,21 @@ public class DiceGameContest {
     public static void main(String[] args) {
         // TODO code application logic here
         DiceRolls test = new DiceRolls();
-        
-        test.roll(5);
+        int n = 6;
+        test.roll(n);
         test.getCombos();
         ArraySet<Integer> t = test.getCombos();
-        Iterator sIt = t.getIterator();
+        /*Iterator sIt = t.getIterator();
             String result = "";
             while (sIt.hasNext()) {
                 result += sIt.next() + "\n";
-            }
+            }*/
             
-        System.out.println(result);
+        //System.out.println(result);
         System.out.print("Number of entries: ");
         System.out.println(t.size());
+        //System.out.println((n*n*n)/2.0 + 2*n*n + 2.5*n + 1);
+        
     }
     
 }
