@@ -1,4 +1,4 @@
-package dicegame;
+package DiceGame;
 
 import java.util.ArrayList;
 import java.util.Collection;
