@@ -54,7 +54,7 @@ public class DiceRolls
      * @param numRolls
      * @param sideValues 
      */
-    private void roll(int numRolls, int[] sideValues)
+    public void roll(int numRolls, int[] sideValues)
     {
         //Add the initial die sides to combos
         for (int i = 0; i <sideValues.length; i++) {
