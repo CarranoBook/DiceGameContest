@@ -25,16 +25,21 @@ public class DiceGame
         System.out.println(dr);
         System.out.println("Number of entries: " + combos.size());
                 */
+        CommutativeDiceProduct i = new CommutativeDiceProduct("");
+        CommutativeDiceProduct a = new CommutativeDiceProduct("a1");
+        CommutativeDiceProduct b = new CommutativeDiceProduct("b1");
+        CommutativeDiceProduct a2 = new CommutativeDiceProduct("a2");
+        CommutativeDiceProduct ab = new CommutativeDiceProduct("a1b1");
+        CommutativeDiceProduct ba = new CommutativeDiceProduct("b1a1");
+        CommutativeDiceProduct[] cdpArr = new CommutativeDiceProduct[4];
+        cdpArr[0] = i;
+        cdpArr[1] = a;
+        cdpArr[2] = b;
+        cdpArr[3] = a2;
+        DiceProducts test = new DiceProducts(cdpArr);
+        System.out.println(test);
+        test.roll(12);
+        System.out.println(test.size());
         
-        String test = "a1b2c3";
-        CommutativeDiceProduct cdp = new CommutativeDiceProduct(test);
-        test = "a3b3c1";
-        CommutativeDiceProduct cdp2 = new CommutativeDiceProduct(test);
-        CommutativeDiceProduct cdp3 = (CommutativeDiceProduct) cdp.product(cdp2);
-        CommutativeDiceProduct identity = new CommutativeDiceProduct("");
-        System.out.println(cdp);
-        System.out.println(cdp2);
-        System.out.println(cdp3);
-        System.out.println(identity);
     }
 }
