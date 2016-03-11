@@ -218,5 +218,21 @@ public class CommutativeDiceProduct
         CommutativeDiceProduct temp = (CommutativeDiceProduct) other;
         return this.compareTo(temp) == 0;
     }
+    
+    /**
+     * This method returns the degree of the term's power.  i returns 0.
+     * @return 
+     */
+    public int degree() {
+        if (this.table.isEmpty())
+            return 0;
+        
+        int result = 0;
+        Iterator<Integer> vIt = this.table.values().iterator();
+        while (vIt.hasNext()) {
+            result += vIt.next();
+        }
+        return result;
+    }
    
 }
