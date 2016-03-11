@@ -38,7 +38,7 @@ public class DiceGame
         cdpArr[3] = a2;
         DiceProducts test = new DiceProducts(cdpArr);
         System.out.println(test);
-        test.roll(12);
+        test.roll(200);
         System.out.println(test.size());
         
     }
