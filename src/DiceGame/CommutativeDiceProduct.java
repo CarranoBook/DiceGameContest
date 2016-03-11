@@ -34,8 +34,12 @@ public class CommutativeDiceProduct
         table = new HashMap<>(INITIAL_DEFAULT_HASH_SIZE, 1);
     }
     
+    public CommutativeDiceProduct(String initialValue, int initialHashSize) {
+        table = stringToHashMap(initialValue, initialHashSize);
+    }
+    
     public CommutativeDiceProduct(String initialValue) {
-        table = stringToHashMap(initialValue);
+        table = stringToHashMap(initialValue, INITIAL_DEFAULT_HASH_SIZE);
     }
         
     private CommutativeDiceProduct(HashMap<String, Integer> result) {
@@ -95,7 +99,22 @@ public class CommutativeDiceProduct
 
     @Override
     public int compareTo(Object o) {
+        
+        
         CommutativeDiceProduct other = (CommutativeDiceProduct) o;
+        
+        //Cases involving the identity element
+        if (this.table.size() == 0) {
+            if (other.table.size() == 0) //both identity element
+                return 0;
+            else
+                return -1;
+        }
+        if (other.table.size() == 0)
+            return 1;
+        //end casses involcing the identity element
+        
+        
         String[] arr = other.keyArray();
         String[] arrThis = this.keyArray();
         
@@ -110,6 +129,11 @@ public class CommutativeDiceProduct
                 else if (this.table.get(arrThis[i]) > other.table.get(arr[i]))
                     return 1;
             }
+            int j = i+1;
+            if (j == arrThis.length && j < arr.length) //If This element has run out of items and the other hasn't.  Thus "this" is less than the other
+                return -1;
+            else if (j == arr.length && j < arrThis.length)
+                return 1;
         }
         
         return 0;
@@ -153,9 +177,9 @@ public class CommutativeDiceProduct
      * @param initialValue
      * @return 
      */
-    private HashMap<String, Integer> stringToHashMap(String inputString) {
+    private HashMap<String, Integer> stringToHashMap(String inputString, int size) {
         //verify the string is formatted correctly       
-        HashMap<String, Integer> result = new HashMap<>(INITIAL_DEFAULT_HASH_SIZE, 1);
+        HashMap<String, Integer> result = new HashMap<>(size, 1);
         if (inputString == "")
             return result;
         String regex = "([a-z])([0-9]++)";
@@ -180,5 +204,19 @@ public class CommutativeDiceProduct
     public HashMap<String, Integer> getHashMap() {
         return table;
     } 
+    
+    @Override
+    public int hashCode() {
+        return this.toString().hashCode();
+    }
+    
+    @Override
+    public boolean equals(Object other) {
+        if (other.getClass() != this.getClass())
+            return false;
+        
+        CommutativeDiceProduct temp = (CommutativeDiceProduct) other;
+        return this.compareTo(temp) == 0;
+    }
    
 }
