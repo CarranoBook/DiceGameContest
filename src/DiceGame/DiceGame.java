@@ -47,17 +47,13 @@ public class DiceGame
         CommutativeDiceProduct a1c1 = new CommutativeDiceProduct("a1c1");
         CommutativeDiceProduct d = new CommutativeDiceProduct("d1");
         CommutativeDiceProduct a31 = new CommutativeDiceProduct("a31");
-        CommutativeDiceProduct[] cdpArr = new CommutativeDiceProduct[9];
+        CommutativeDiceProduct[] cdpArr = new CommutativeDiceProduct[5];
         CommutativeDiceProduct[] cdpArr2 = new CommutativeDiceProduct[4];
         cdpArr[0] = i;
         cdpArr[1] = a;
         cdpArr[2] = b;
-        cdpArr[3] = c; 
-        cdpArr[4] = a2;
-        cdpArr[5] = b2;
-        cdpArr[6] = a1b1;
-        cdpArr[7] = a1c1;
-        cdpArr[8] = d;
+        cdpArr[3] = a2;
+        cdpArr[4] = c;
         
 
         /*cdpArr[4] = a2;
@@ -66,12 +62,13 @@ public class DiceGame
         cdpArr[7] = bc;*/
         DiceProducts test = new DiceProducts(cdpArr);
         //System.out.println(test);
-        int n = 9;
+        int n = 10;
         test.roll(n);
         for (int j = 1; j <= n; j++)
             System.out.println("Roll number " + j + " adds " + test.getNthRoll(j).size() + ":\t" + test.getNthRoll(j));
         
         System.out.println(test.size());
+        System.out.println(test.totalSize());
         
         /*System.out.println();
         for (int j = 1; j <= n; j++)
