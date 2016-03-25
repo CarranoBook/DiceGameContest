@@ -6,6 +6,8 @@
 
 package DiceGame;
 
+import Jama.LUDecomposition;
+import Jama.Matrix;
 import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -119,4 +121,98 @@ public class DiceProducts {
         }
         return result;
     }
+    
+    public Matrix getStdBasisVector() {
+        if (this.numberOfPrimes() == 2)
+            return this.getStdBasisVectorThree();
+        else if (this.numberOfPrimes() == 3)
+            return this.getStdBasisVectorFour();
+        else
+            return null;
+    }
+    
+    /**
+     * This method returns the polynomial vector in the standard basis representing
+     * the unique dice products of  dice with two prime values.  Note that, as of now,
+     * it requires the function to behave polynomially beginning by at least roll number 3
+     * @return polynomial vector in the standard basis
+     */
+    public Matrix getStdBasisVectorThree() {
+        Matrix result;
+        double[] d0 = {9, 3, 1, this.getNthRoll(1).size() + this.getNthRoll(2).size() + this.getNthRoll(3).size()};
+        double[] d1 = {16, 4, 1, d0[3] + this.getNthRoll(4).size()};
+        double[] d2 = {25, 5, 1, d1[3] + this.getNthRoll(5).size()};
+        double[][] d = new double[3][4];
+        d[0] = d0; d[1] = d1; d[2] = d2;
+        Matrix p = new Matrix(d);
+        Matrix k = p.rref();
+        result = k.getMatrix(0, 2, 3, 3);//
+        
+        return result;
+    }
+    
+    /**
+     * This method returns the polynomial vector in the combinatorial basis representing
+     * the unique dice products of  dice with two prime values.  Note that, as of now,
+     * it requires the function to behave polynomially beginning by at least roll number 3
+     * @return polynomial vector in the standard basis
+     */
+    public Matrix getCombBasisVectorThree() {
+        double[][] p = new double[3][3];
+        double[] p0 = {0, 0, 1};
+        double[] p1 = {1, 1, -2};
+        double[] p2 = {1, -1, 1};
+        p[0] = p0; p[1] = p1; p[2] = p2;
+                
+        Matrix P3 = new Matrix(p);
+        
+        Matrix v = this.getStdBasisVectorThree();
+        return P3.times(v);
+    }
+    
+    /**
+     * This method returns the polynomial vector in the standard basis representing
+     * the unique dice products of  dice with three prime values.  Note that, as of now,
+     * it requires the function to behave polynomially beginning by at least roll number 3
+     * @return polynomial vector in the standard basis
+     */
+    public Matrix getStdBasisVectorFour() {
+        Matrix result;
+        double[] d0 = {27, 9, 3, 1, this.getNthRoll(1).size() + this.getNthRoll(2).size() + this.getNthRoll(3).size()};
+        double[] d1 = {64, 16, 4, 1, d0[4] + this.getNthRoll(4).size()};
+        double[] d2 = {125, 25, 5, 1, d1[4] + this.getNthRoll(5).size()};
+        double[] d3 = {216, 36, 6, 1, d2[4] + this.getNthRoll(6).size()};
+        double[][] d = new double[4][5];
+        d[0] = d0; d[1] = d1; d[2] = d2; d[3] = d3;
+        Matrix p = new Matrix(d);
+        Matrix k = p.rref();
+        result = k.getMatrix(0, 3, 4, 4);//
+        
+        return result;
+    }
+    
+    /**
+     * This method returns the polynomial vector in the combinatorial basis representing
+     * the unique dice products of  dice with three prime values.  Note that, as of now,
+     * it requires the function to behave polynomially beginning by at least roll number 3
+     * @return polynomial vector in the standard basis
+     */
+    public Matrix getCombBasisVectorFour() {
+        double[][] p = new double[4][4];
+        double[] p0 = {0, 0, 0, 1};
+        double[] p1 = {-1, 3, -1, -1};
+        double[] p2 = {4, 0, -2, 3};
+        double[] p3 = {3, -3, 3, -3};
+        p[0] = p0; p[1] = p1; p[2] = p2; p[3] = p3;
+                
+        Matrix P4 = new Matrix(p);
+        
+        Matrix v = this.getStdBasisVectorFour();
+        return P4.times(v);
+    }
+    
+    public int numberOfPrimes() {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+        
 }
