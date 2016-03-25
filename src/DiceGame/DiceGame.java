@@ -1,5 +1,7 @@
 package DiceGame;
 
+import Jama.LUDecomposition;
+import Jama.Matrix;
 import java.util.Iterator;
 import java.util.TreeSet;
 
@@ -24,7 +26,8 @@ public class DiceGame
         
         System.out.println(dr);
         System.out.println("Number of entries: " + combos.size());
-                */
+        */
+        
         CommutativeDiceProduct i = new CommutativeDiceProduct("");
         CommutativeDiceProduct a = new CommutativeDiceProduct("a1");
         CommutativeDiceProduct b = new CommutativeDiceProduct("b1");
@@ -46,14 +49,19 @@ public class DiceGame
         CommutativeDiceProduct a7 = new CommutativeDiceProduct("a7");
         CommutativeDiceProduct a1c1 = new CommutativeDiceProduct("a1c1");
         CommutativeDiceProduct d = new CommutativeDiceProduct("d1");
+        CommutativeDiceProduct c2 = new CommutativeDiceProduct("c2");
         CommutativeDiceProduct a31 = new CommutativeDiceProduct("a31");
-        CommutativeDiceProduct[] cdpArr = new CommutativeDiceProduct[5];
+        CommutativeDiceProduct b1c1 = new CommutativeDiceProduct("b1c1");
+        CommutativeDiceProduct[] cdpArr = new CommutativeDiceProduct[6];
         CommutativeDiceProduct[] cdpArr2 = new CommutativeDiceProduct[4];
         cdpArr[0] = i;
         cdpArr[1] = a;
         cdpArr[2] = b;
-        cdpArr[3] = a2;
-        cdpArr[4] = c;
+        cdpArr[3] = c;
+        cdpArr[4] = a2;
+        cdpArr[5] = a1b1;
+        
+
         
 
         /*cdpArr[4] = a2;
@@ -63,13 +71,17 @@ public class DiceGame
         DiceProducts test = new DiceProducts(cdpArr);
         //System.out.println(test);
         int n = 10;
-        test.roll(n);
-        for (int j = 1; j <= n; j++)
-            System.out.println("Roll number " + j + " adds " + test.getNthRoll(j).size() + ":\t" + test.getNthRoll(j));
+       for (int j = 1; j <= n; j++)
+            System.out.println("Roll number " + j + " adds " + test.getNthRoll(j).size() + " for " + test.size() + ":\t");
         
         System.out.println(test.size());
         System.out.println(test.totalSize());
         
+        
+        System.out.print("Standard basis vector: ");
+        test.getStdBasisVectorFour().print(3, 3);
+        System.out.print("Combinatorics basis vector: ");
+        test.getCombBasisVectorFour().print(3,3);
         /*System.out.println();
         for (int j = 1; j <= n; j++)
             System.out.println("Roll number " + j + ":\t" + test2.getNthRoll(j));
