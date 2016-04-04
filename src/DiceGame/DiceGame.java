@@ -2,8 +2,11 @@ package DiceGame;
 
 import Jama.LUDecomposition;
 import Jama.Matrix;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.TreeSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created on Mar 4, 2016.
@@ -86,5 +89,28 @@ public class DiceGame
         for (int j = 1; j <= n; j++)
             System.out.println("Roll number " + j + ":\t" + test2.getNthRoll(j));
         */
+        
+        // Testing shit and examples. Remove this whenever.
+        CSVWriter csvTest = null;
+        try {
+            csvTest = new CSVWriter("test.csv");
+            csvTest.writeRow("a", "b", "c");
+            csvTest.writeRow("d", "e", "f, g");
+            csvTest.writeRow(2, 3, 5, 6);
+            csvTest.writeCell("x");
+            csvTest.writeCell("y");
+            csvTest.writeLine();
+            csvTest.writeCell("z");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (csvTest != null) {
+                    csvTest.close();
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 }
