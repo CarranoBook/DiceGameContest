@@ -35,11 +35,20 @@ public class DiceProducts {
         
     }
     
+    
+    /**
+     * This method generates all of the possible combinations from rolling the dice
+     * 'n' times
+     * @param n the number of times to roll the dice
+     */
     public void roll(int n) {
         while (rollNumber < n)
             this.roll();
     }
             
+    /**
+     * Private implementation of public {@link #roll(int) roll} method.
+     */
     private void roll() {
         DiceProductInterface temp;
         DiceProductInterface tempProd;
@@ -79,6 +88,7 @@ public class DiceProducts {
             combos.get(product)[1]++;
     } //end put
     
+    
     public String toString() {
         String result = "Combination \t : \t first roll number";
         Iterator<Entry<DiceProductInterface, Integer[]>> cIt = combos.entrySet().iterator();
@@ -90,6 +100,14 @@ public class DiceProducts {
         return result;
     }
     
+    
+    /**
+     * This method returns a TreeSet containing all of
+     * the DiceProductInterfaces which occur on the 'n'th roll
+     * @param n the roll whose products are added to the treeset
+     * @return TreeSet containing all of
+     * the DiceProductInterfaces which occur on the 'n'th roll
+     */
     public TreeSet<DiceProductInterface> getNthRoll(int n) {
         this.roll(n);
         Entry<DiceProductInterface, Integer[]> temp;
@@ -111,6 +129,9 @@ public class DiceProducts {
         return this.combos.size();
     }
     
+    /**
+     * The sum of the number of occurences of each product
+     */
     public long totalSize() {
         Iterator<Entry<DiceProductInterface, Integer[]>> cIt = this.combos.entrySet().iterator();
         Entry<DiceProductInterface, Integer[]> temp;
