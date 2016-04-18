@@ -74,4 +74,17 @@ public class IntegerDiceProduct implements DiceProductInterface {
         else
             return 0;
     }
+    
+    @Override
+    public boolean equals(Object o) {
+        if (o.getClass() != IntegerDiceProduct.class) {
+            throw new IllegalArgumentException("Argument must be an IntegerDiceProduct");
+        }
+        
+        //Cast the multiplicand
+        IntegerDiceProduct m = (IntegerDiceProduct) o;
+        
+        return this.value == m.getValue();
+    }
+    
 }

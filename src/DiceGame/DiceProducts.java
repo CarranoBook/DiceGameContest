@@ -45,6 +45,13 @@ public class DiceProducts {
         while (rollNumber < n)
             this.roll();
     }
+    
+    public int getNumberOfTotalOccurences(DiceProductInterface val) {
+        if (combos.containsKey(val))
+            return combos.get(val)[1];
+        else
+            return 0;
+    }
             
     /**
      * Private implementation of public {@link #roll(int) roll} method.
@@ -130,7 +137,7 @@ public class DiceProducts {
     }
     
     /**
-     * The sum of the number of occurences of each product
+     * The sum of the number of occurrences of each product
      */
     public long totalSize() {
         Iterator<Entry<DiceProductInterface, Integer[]>> cIt = this.combos.entrySet().iterator();
@@ -234,6 +241,17 @@ public class DiceProducts {
     
     public int numberOfPrimes() {
         throw new UnsupportedOperationException("Not yet implemented");
+    }
+    
+    
+    /**
+     * Resets data to as if only the first roll has occurred.  
+     */
+    public void clearData() {
+        combos.clear();
+        rollNumber = 1;
+        for (int i = 0; i < products.length; i++) 
+            this.put(products[i], rollNumber);
     }
         
 }
