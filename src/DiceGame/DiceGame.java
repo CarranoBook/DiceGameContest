@@ -1,6 +1,12 @@
 package DiceGame;
 
+import Jama.LUDecomposition;
+import Jama.Matrix;
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.TreeSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created on Mar 4, 2016.
@@ -11,34 +17,99 @@ public class DiceGame
 {
     public static void main(String[] args)
     {
-        int[] diceValues = { 1, 2, 3, 4, 6 };
+
+        /*
+        DiceRolls dr = new DiceRolls();
+        dr.roll(2, new int[] { 1, 2, 3, 5, 7});
+        //dr.roll(1, 3);
+        TreeSet<Long> combos = dr.getCombos();
+        Iterator<Long> it = combos.iterator();
         
-        int nRolls = 15;
-        int rStart = 1000;
-        int rEnd = 5000;
         
-        ProbabilityFinder pf = new ProbabilityFinder(diceValues, nRolls + 1, rStart, rEnd);
-        double[] probs = pf.getProbs();
-       
-        CSVWriter csv = null;
+        
+        System.out.println(dr);
+        System.out.println("Number of entries: " + combos.size());
+        */
+        
+        CommutativeDiceProduct i = new CommutativeDiceProduct("");
+        CommutativeDiceProduct a = new CommutativeDiceProduct("a1");
+        CommutativeDiceProduct b = new CommutativeDiceProduct("b1");
+        CommutativeDiceProduct c = new CommutativeDiceProduct("c1");
+        CommutativeDiceProduct a2 = new CommutativeDiceProduct("a2");
+        CommutativeDiceProduct b2 = new CommutativeDiceProduct("b2");
+        CommutativeDiceProduct ab = new CommutativeDiceProduct("a1b1");
+        CommutativeDiceProduct bc = new CommutativeDiceProduct("b1c1");
+        CommutativeDiceProduct ab2 = new CommutativeDiceProduct("a1b2");
+        CommutativeDiceProduct a1b3 = new CommutativeDiceProduct("a1b3");
+        CommutativeDiceProduct a1b1 = new CommutativeDiceProduct("a1b1");
+        CommutativeDiceProduct a3 = new CommutativeDiceProduct("a3");
+        CommutativeDiceProduct a4 = new CommutativeDiceProduct("a4");
+        CommutativeDiceProduct a2b2 = new CommutativeDiceProduct("a2b2");
+        CommutativeDiceProduct a3b3 = new CommutativeDiceProduct("a3b3");
+        CommutativeDiceProduct a4b4 = new CommutativeDiceProduct("a4b4");
+        CommutativeDiceProduct a5b5 = new CommutativeDiceProduct("a5b5");
+        CommutativeDiceProduct a6b6 = new CommutativeDiceProduct("a6b6");
+        CommutativeDiceProduct a7 = new CommutativeDiceProduct("a7");
+        CommutativeDiceProduct a1c1 = new CommutativeDiceProduct("a1c1");
+        CommutativeDiceProduct d = new CommutativeDiceProduct("d1");
+        CommutativeDiceProduct c2 = new CommutativeDiceProduct("c2");
+        CommutativeDiceProduct a31 = new CommutativeDiceProduct("a31");
+        CommutativeDiceProduct b1c1 = new CommutativeDiceProduct("b1c1");
+        CommutativeDiceProduct[] cdpArr = new CommutativeDiceProduct[6];
+        CommutativeDiceProduct[] cdpArr2 = new CommutativeDiceProduct[4];
+        cdpArr[0] = i;
+        cdpArr[1] = a;
+        cdpArr[2] = b;
+        cdpArr[3] = c;
+        cdpArr[4] = a2;
+        cdpArr[5] = a1b1;
+        
+
+        
+
+        /*cdpArr[4] = a2;
+        cdpArr[5] = b2;
+        cdpArr[6] = ab;
+        cdpArr[7] = bc;*/
+        DiceProducts test = new DiceProducts(cdpArr);
+        //System.out.println(test);
+        int n = 10;
+       for (int j = 1; j <= n; j++)
+            System.out.println("Roll number " + j + " adds " + test.getNthRoll(j).size() + " for " + test.size() + ":\t");
+        
+        System.out.println(test.size());
+        System.out.println(test.totalSize());
+        
+        
+        System.out.print("Standard basis vector: ");
+        test.getStdBasisVectorFour().print(3, 3);
+        System.out.print("Combinatorics basis vector: ");
+        test.getCombBasisVectorFour().print(3,3);
+        /*System.out.println();
+        for (int j = 1; j <= n; j++)
+            System.out.println("Roll number " + j + ":\t" + test2.getNthRoll(j));
+        */
+        
+        // Testing shit and examples. Remove this whenever.
+        CSVWriter csvTest = null;
         try {
-            csv = new CSVWriter("data.csv");
-            csv.writeRow("roll", "probability");
-            for (int i = 1; i < probs.length; i++) {
-                csv.writeRow(i, probs[i]);
-                System.out.println(probs[i]);
-            }
+            csvTest = new CSVWriter("test.csv");
+            csvTest.writeRow("a", "b", "c");
+            csvTest.writeRow("d", "e", "f, g");
+            csvTest.writeRow(2, 3, 5, 6);
+            csvTest.writeCell("x");
+            csvTest.writeCell("y");
+            csvTest.writeLine();
+            csvTest.writeCell("z");
         } catch (IOException ex) {
-            System.err.printf("Error writing file! [%s: %s]\n",
-                    ex.getClass().getName(), ex.getMessage());
+            ex.printStackTrace();
         } finally {
             try {
-                if (csv != null) {
-                    csv.close();
+                if (csvTest != null) {
+                    csvTest.close();
                 }
             } catch (IOException ex) {
-                System.err.printf("Error closing file! [%s: %s]\n",
-                    ex.getClass().getName(), ex.getMessage());
+                ex.printStackTrace();
             }
         }
     }
