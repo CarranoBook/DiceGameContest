@@ -6,6 +6,8 @@
 
 package DiceGame;
 
+import java.util.TreeMap;
+
 /**
  *
  * @author NB <nb@fs.org>
