@@ -6,8 +6,6 @@
 
 package DiceGame;
 
-import java.util.TreeMap;
-
 /**
  *
  * @author NB <nb@fs.org>
@@ -15,7 +13,7 @@ import java.util.TreeMap;
 public class ProbabilityFinder {
     int[] dice;
     double[] probs;
-    int[][] map; //1st index: the value.  2nd index: the number of times it occurs at the nth roll
+    long[][] map; //1st index: the value.  2nd index: the number of times it occurs at the nth roll
     int rolls;
     int rollcount;
     int rStart;
@@ -44,7 +42,7 @@ public class ProbabilityFinder {
     }
     
     private void initializeMap() {
-        map = new int[rEnd+1][rolls+1];
+        map = new long[rEnd+1][rolls+1];
         for (int d : dice)
             if (d < map.length)
                 map[d][1] = 1;
@@ -68,9 +66,9 @@ public class ProbabilityFinder {
     }
      
     
-    private int[] countOccurrences() {
-        int[] occurrences = new int[rolls+1]; // occurrences[j] is the number of ways to roll within the roll range on the jth roll.
-        int sum;
+    private long[] countOccurrences() {
+        long[] occurrences = new long[rolls+1]; // occurrences[j] is the number of ways to roll within the roll range on the jth roll.
+        long sum;
         for (int i = 1; i <= rolls; i++) {
             sum = 0;
             for (int j = rStart; j<=rEnd; j++) {
@@ -82,7 +80,7 @@ public class ProbabilityFinder {
     }
     
     private void generateProbabilities() {
-        int[] occurrences = countOccurrences();
+        long[] occurrences = countOccurrences();
         double[] probabilities = new double[occurrences.length];
         
         for (int i = 1; i <= rolls; i++)
